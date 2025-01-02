@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("IsMoveForward", true);
             
             // 移動処理
-            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * moveSpeed * Vector3.forward);
+            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * moveSpeed * transform.forward);
         }
         // Wキーを離したら静止する
         else if (Input.GetKeyUp(KeyCode.W))
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("IsMoveBackward", true);
 
             // 移動処理
-            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * moveSpeed/2 * Vector3.back);
+            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * -moveSpeed/2 * transform.forward);
         }
         // Sキーを離したら静止する
         else if (Input.GetKeyUp(KeyCode.S))
