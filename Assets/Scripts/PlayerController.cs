@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     
     private Animator _animator;
     private Rigidbody _rigidbody;
+    private bool _isMove;
+    private bool _isMoveForward;
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -23,13 +26,17 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("IsMoveForward", true);
             
             // 移動処理
-            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * moveSpeed * transform.forward);
+            _isMove = true;
+            _isMoveForward = true;
         }
         // Wキーを離したら静止する
         else if (Input.GetKeyUp(KeyCode.W))
         {
             // 静止アニメーション
             _animator.SetBool("IsMoveForward", false);
+            
+            // 移動処理
+            _isMove = false;
         }
         // Sキーを押している間は後ろに進む
         if (Input.GetKey(KeyCode.S))
@@ -38,13 +45,28 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("IsMoveBackward", true);
 
             // 移動処理
-            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * -moveSpeed/2 * transform.forward);
+            _isMove = true;
+            _isMoveForward = false;
         }
         // Sキーを離したら静止する
         else if (Input.GetKeyUp(KeyCode.S))
         {
             // 静止アニメーション
             _animator.SetBool("IsMoveBackward", false);
+            
+            // 移動処理
+            _isMove = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isMoveForward && _isMove) 
+            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * moveSpeed/2 * transform.forward);
+        
+        else if (!_isMoveForward && _isMove)
+        {
+            _rigidbody.MovePosition(_rigidbody.position + Time.deltaTime * -moveSpeed/2 * transform.forward);
         }
     }
 }
