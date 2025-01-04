@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class InGameManager : MonoBehaviour
@@ -7,11 +8,13 @@ public class InGameManager : MonoBehaviour
     
     [SerializeField, Header("プレイヤー")] private PlayerController player;
     
-    [SerializeField, Header("メインカメラ")] private CameraController mainCamera;
+    [SerializeField, Header("メインカメラ")] private Camera mainCamera;
     
     [SerializeField, Header("プレイヤーカメラ")] private Camera playerCamera;
     
     [SerializeField, Header("モンスターカメラ")] private Camera monsterCamera;
+    
+    [SerializeField, Header("UIマネージャー")] private UIManager uiManager;
     
     private static InGameManager _instance;
     public static InGameManager Instance => _instance;
@@ -19,6 +22,52 @@ public class InGameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(StartScene());
+    }
+
+    private IEnumerator StartScene()
+    {
+        yield return ActivatePlayerCamera();
+        yield return uiManager.ShowMessage1();
+        yield return uiManager.WaitMessageInterval();
+        yield return ActivateMonsterCamera();
+        yield return uiManager.ShowMessage2();
+        yield return uiManager.WaitMessageInterval();
+        yield return uiManager.ShowMessage3();
+        yield return uiManager.WaitMessageInterval();
+        yield return ActivatePlayerCamera();
+        yield return uiManager.ShowMessage4();
+        yield return uiManager.WaitMessageInterval();
+        yield return uiManager.DisableCanvas();
+        yield return ActivateMainCamera();
+    }
+
+    private IEnumerator ActivateMainCamera()
+    {
+        yield return new WaitForSeconds(0.25f);
+        mainCamera.gameObject.SetActive(true);
+        playerCamera.gameObject.SetActive(false);
+        monsterCamera.gameObject.SetActive(false);
+    }
+
+    private IEnumerator ActivatePlayerCamera()
+    {
+        yield return new WaitForSeconds(0.25f);
+        playerCamera.gameObject.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
+        monsterCamera.gameObject.SetActive(false);
+    }
+
+    private IEnumerator ActivateMonsterCamera()
+    {
+        yield return new WaitForSeconds(0.25f);
+        monsterCamera.gameObject.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
+        playerCamera.gameObject.SetActive(false);
     }
 
     public void OnMoneyPicked(int index)
