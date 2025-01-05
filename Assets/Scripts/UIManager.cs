@@ -62,6 +62,12 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
+    public IEnumerator EnableCanvas()
+    {
+        yield return new WaitForSeconds(0.25f);
+        canvas.enabled = true;
+    }
+
     public IEnumerator DisableCanvas()
     {
         yield return new WaitForSeconds(0.25f);
