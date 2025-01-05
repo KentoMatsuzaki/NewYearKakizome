@@ -16,6 +16,8 @@ public class InGameManager : MonoBehaviour
     
     [SerializeField, Header("UIマネージャー")] private UIManager uiManager;
     
+    [SerializeField, Header("チュートリアルスキップ")] private bool isSkipTutorial;
+    
     private static InGameManager _instance;
     public static InGameManager Instance => _instance;
 
@@ -26,11 +28,12 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartScene());
+        if (!isSkipTutorial) StartCoroutine(StartScene());
     }
 
     private IEnumerator StartScene()
     {
+        yield return uiManager.EnableCanvas();
         yield return ActivatePlayerCamera();
         yield return uiManager.ShowMessage1();
         yield return uiManager.WaitMessageInterval();
