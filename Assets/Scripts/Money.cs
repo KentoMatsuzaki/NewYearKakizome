@@ -7,6 +7,8 @@ using UnityEngine;
 public class Money : MonoBehaviour
 {
     [SerializeField, Header("取得時のイベント")] private int itemNumber;
+
+    [SerializeField, Header("トレイル")] private Transform trail;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +18,7 @@ public class Money : MonoBehaviour
     private IEnumerator OnPickedCoroutine()
     {
         yield return new WaitForSeconds(0.25f);
+        trail.SetParent(null);
         InGameManager.Instance.OnMoneyPicked(itemNumber);
         Destroy(gameObject);
     }
