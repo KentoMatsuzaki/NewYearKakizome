@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
     private void Update()
     {
