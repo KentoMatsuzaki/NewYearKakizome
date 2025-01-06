@@ -17,7 +17,7 @@ public class Money : MonoBehaviour
 
     private IEnumerator OnPickedCoroutine()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         trail.SetParent(null);
         InGameManager.Instance.OnMoneyPicked(itemNumber);
         Destroy(gameObject);
