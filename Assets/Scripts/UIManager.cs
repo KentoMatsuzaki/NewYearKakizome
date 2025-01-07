@@ -1,12 +1,17 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField, Header("キャンバス")] Canvas canvas;
+    [SerializeField, Header("ダイアログキャンバス")] Canvas dialogCanvas;
+    [SerializeField, Header("インゲームキャンバス")] Canvas ingameCanvas;
     [SerializeField, Header("話者の名前のテキスト")] TextMeshProUGUI nameText;
     [SerializeField, Header("テキストボックス")] TextMeshProUGUI descriptionText;
+    [SerializeField, Header("正月パワー")] Slider powerSlider;
+    [SerializeField, Header("ゲージの増加速度")] private float fillSpeed = 1.0f;
+    [SerializeField, Header("ゲージの増加量")] private float fillAmount = 0.1f;
 
     private string message1 = "俺の名前はタカシ！\n俺はとにかく足が速い！\nそして金にがめつい！";
     private string message2 = "大変だ！タカシくん！\nお正月の力が弱まってる！";
@@ -62,15 +67,43 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    public IEnumerator EnableCanvas()
+    public IEnumerator EnableDialogCanvas()
     {
         yield return new WaitForSeconds(0.25f);
-        canvas.enabled = true;
+        dialogCanvas.enabled = true;
     }
 
-    public IEnumerator DisableCanvas()
+    public IEnumerator DisableDialogCanvas()
     {
         yield return new WaitForSeconds(0.25f);
-        canvas.enabled = false;
+        dialogCanvas.enabled = false;
     }
+
+    public IEnumerator EnableInGameCanvas()
+    {
+        yield return new WaitForSeconds(0.25f);
+        ingameCanvas.enabled = true;
+    }
+
+    public IEnumerator DisableInGameCanvas()
+    {
+        yield return new WaitForSeconds(0.25f);
+        ingameCanvas.enabled = false;
+    }
+
+    public void AddNewYearPower()
+    {
+        StartCoroutine(AddNewYearPowerCoroutine());
+    }
+
+    private IEnumerator AddNewYearPowerCoroutine()
+    {
+        float targetPower = Mathf.Min(powerSlider.value + fillAmount, 1.0f);
+        while (powerSlider.value < targetPower)
+        {
+            powerSlider.value = Mathf.MoveTowards(powerSlider.value, targetPower, fillSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
 }
