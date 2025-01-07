@@ -33,7 +33,8 @@ public class InGameManager : MonoBehaviour
 
     private IEnumerator StartScene()
     {
-        yield return uiManager.EnableCanvas();
+        yield return uiManager.EnableDialogCanvas();
+        yield return uiManager.DisableInGameCanvas();
         yield return ActivatePlayerCamera();
         yield return uiManager.ShowMessage1();
         yield return uiManager.WaitMessageInterval();
@@ -45,8 +46,9 @@ public class InGameManager : MonoBehaviour
         yield return ActivatePlayerCamera();
         yield return uiManager.ShowMessage4();
         yield return uiManager.WaitMessageInterval();
-        yield return uiManager.DisableCanvas();
+        yield return uiManager.DisableDialogCanvas();
         yield return ActivateMainCamera();
+        yield return uiManager.EnableInGameCanvas();
     }
 
     private IEnumerator ActivateMainCamera()
@@ -76,5 +78,11 @@ public class InGameManager : MonoBehaviour
     public void OnMoneyPicked(int index)
     {
         player.transform.position = points[index].position;
+        uiManager.AddNewYearPower();
+    }
+
+    public void OnDummyPicked()
+    {
+        uiManager.AddNewYearPower();
     }
 }
