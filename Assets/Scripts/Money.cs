@@ -12,7 +12,14 @@ public class Money : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(OnPickedCoroutine());
+        if (itemNumber == 10)
+        {
+            
+        }
+        else
+        {
+            StartCoroutine(OnPickedCoroutine());
+        }
     }
 
     private IEnumerator OnPickedCoroutine()
