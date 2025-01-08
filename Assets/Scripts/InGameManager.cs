@@ -17,6 +17,10 @@ public class InGameManager : MonoBehaviour
     [SerializeField, Header("UIマネージャー")] private UIManager uiManager;
     
     [SerializeField, Header("チュートリアルスキップ")] private bool isSkipTutorial;
+
+    [SerializeField, Header("チュートリアルモンスター")] private GameObject tutorialMonster;
+    
+    [SerializeField, Header("インゲームモンスター")] private GameObject inGameMonster;
     
     private static InGameManager _instance;
     public static InGameManager Instance => _instance;
@@ -33,9 +37,10 @@ public class InGameManager : MonoBehaviour
 
     private IEnumerator StartScene()
     {
+        yield return ActivatePlayerCamera();
+        yield return new WaitForSeconds(0.5f);
         yield return uiManager.EnableDialogCanvas();
         yield return uiManager.DisableInGameCanvas();
-        yield return ActivatePlayerCamera();
         yield return uiManager.ShowMessage1();
         yield return uiManager.WaitMessageInterval();
         yield return ActivateMonsterCamera();
@@ -49,6 +54,7 @@ public class InGameManager : MonoBehaviour
         yield return uiManager.DisableDialogCanvas();
         yield return ActivateMainCamera();
         yield return uiManager.EnableInGameCanvas();
+        yield return SwitchMonster();
     }
 
     private IEnumerator ActivateMainCamera()
@@ -73,6 +79,13 @@ public class InGameManager : MonoBehaviour
         monsterCamera.gameObject.SetActive(true);
         mainCamera.gameObject.SetActive(false);
         playerCamera.gameObject.SetActive(false);
+    }
+
+    private IEnumerator SwitchMonster()
+    {
+        yield return new WaitForSeconds(0.25f);
+        tutorialMonster.gameObject.SetActive(false);
+        inGameMonster.gameObject.SetActive(true);
     }
 
     public void OnMoneyPicked(int index)
