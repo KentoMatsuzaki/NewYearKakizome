@@ -40,6 +40,7 @@ public class SoundManager : MonoBehaviour
     public IEnumerator PlayEnd()
     {
         yield return null;
+        _audioSource.Stop();
         _audioSource.PlayOneShot(end);
     }
     public void PlayMoney() => _audioSource.PlayOneShot(money);
@@ -49,6 +50,6 @@ public class SoundManager : MonoBehaviour
     public IEnumerator Destroy()
     {
         yield return null;
-        _audioSource.volume = 0.25f;
+        _audioSource.volume = 0f;
     }
 }
