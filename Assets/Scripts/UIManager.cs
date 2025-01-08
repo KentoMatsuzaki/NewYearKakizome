@@ -13,10 +13,10 @@ public class UIManager : MonoBehaviour
     [SerializeField, Header("ゲージの増加速度")] private float fillSpeed = 1.0f;
     [SerializeField, Header("ゲージの増加量")] private float fillAmount = 0.1f;
 
-    private string message1 = "俺の名前はタカシ！\n俺はとにかく足が速い！\nそして金にがめつい！";
+    private string message1 = "俺の名前はタカシ！\n俺はとにかく足が速い！\nそして、金にがめつい！";
     private string message2 = "大変だ！タカシくん！\nお正月の力が弱まってる！";
     private string message3 = "みんなのお年玉を集めて\nお正月の力を取り戻さなきゃ！";
-    private string message4 = "よし！この俺に任せろ！\nついて来い、ポチ！";
+    private string message4 = "よし！この俺に任せろ！\nついて来い、ケダモノ！";
 
     public IEnumerator ShowMessage1()
     {
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         foreach (var c in message1)
         {
             descriptionText.text += c;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         foreach (var c in message2)
         {
             descriptionText.text += c;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         foreach (var c in message3)
         {
             descriptionText.text += c;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
