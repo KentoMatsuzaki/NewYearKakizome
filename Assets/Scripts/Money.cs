@@ -14,7 +14,7 @@ public class Money : MonoBehaviour
     {
         if (itemNumber == 10)
         {
-            
+            StartCoroutine(OnLastPickedCoroutine());
         }
         else
         {
@@ -27,6 +27,13 @@ public class Money : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         trail.SetParent(null);
         InGameManager.Instance.OnMoneyPicked(itemNumber);
+        Destroy(gameObject);
+    }
+
+    private IEnumerator OnLastPickedCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        InGameManager.Instance.OnLastMoneyPicked();
         Destroy(gameObject);
     }
 }
