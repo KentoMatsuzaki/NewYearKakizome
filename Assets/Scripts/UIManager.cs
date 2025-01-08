@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour
     private string message2 = "大変だ！タカシくん！\nお正月の力が弱まってる！";
     private string message3 = "みんなのお年玉を集めて\nお正月の力を取り戻さなきゃ！";
     private string message4 = "よし！この俺に任せろ！\nついて来い、ケダモノ！";
+    private string message5 = "ありがとうタカシくん。\n君のおかげで正月の力を取り戻せたよ。";
+    private string message6 = "これで本当の姿に戻れる。\n";
+    private string message7 = "この姿では初めまして、タカシくん。\n私こそが正月の神です。";
+    private string message8 = "見てご覧、君のおかげで\n正月の力が満ちているよ。";
 
     public IEnumerator ShowMessage1()
     {
@@ -56,6 +60,50 @@ public class UIManager : MonoBehaviour
         nameText.text = "タカシ";
         descriptionText.text = "";
         foreach (var c in message4)
+        {
+            descriptionText.text += c;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    
+    public IEnumerator ShowMessage5()
+    {
+        nameText.text = "ケダモノ";
+        descriptionText.text = "";
+        foreach (var c in message5)
+        {
+            descriptionText.text += c;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    
+    public IEnumerator ShowMessage6()
+    {
+        nameText.text = "ケダモノ";
+        descriptionText.text = "";
+        foreach (var c in message6)
+        {
+            descriptionText.text += c;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    
+    public IEnumerator ShowMessage7()
+    {
+        nameText.text = "正月の神";
+        descriptionText.text = "";
+        foreach (var c in message7)
+        {
+            descriptionText.text += c;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    
+    public IEnumerator ShowMessage8()
+    {
+        nameText.text = "正月の神";
+        descriptionText.text = "";
+        foreach (var c in message8)
         {
             descriptionText.text += c;
             yield return new WaitForSeconds(0.2f);
